@@ -14,7 +14,7 @@ export const EventModal = ({ date, events, onAddEvent }) => {
     setEndTime('');
   };
 
-  return (
+  return ( 
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
       <div className="bg-white p-4 rounded">
         <h3 className="text-lg font-bold mb-2">Events for {date.toDateString()}</h3>
