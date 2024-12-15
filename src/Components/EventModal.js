@@ -4,17 +4,21 @@ export const EventModal = ({ date, events, onAddEvent }) => {
   const [eventName, setEventName] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
+  const [description, setDescription] = useState(''); // New state for description
 
   const handleAddEvent = () => {
-    if (!eventName || !startTime || !endTime) return alert('Fill all fields');
-    const event = { name: eventName, startTime, endTime };
+    if (!eventName || !startTime || !endTime || !description) {
+      return alert('Fill all fields');
+    }
+    const event = { name: eventName, startTime, endTime, description };
     onAddEvent(date, event);
     setEventName('');
     setStartTime('');
     setEndTime('');
+    setDescription(''); // Reset the description field
   };
 
-  return ( 
+  return (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
       <div className="bg-white p-4 rounded">
         <h3 className="text-lg font-bold mb-2">Events for {date.toDateString()}</h3>
@@ -22,6 +26,7 @@ export const EventModal = ({ date, events, onAddEvent }) => {
           {events.map((event, idx) => (
             <li key={idx} className="mb-1">
               {event.name} ({event.startTime} - {event.endTime})
+              <p className="text-sm text-gray-600">{event.description}</p> {/* Display description */}
             </li>
           ))}
         </ul>
@@ -44,6 +49,12 @@ export const EventModal = ({ date, events, onAddEvent }) => {
           onChange={(e) => setEndTime(e.target.value)}
           className="border p-1 mb-2 w-full"
         />
+        <textarea
+          placeholder="Event Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="border p-1 mb-2 w-full"
+        ></textarea> {/* New description field */}
         <div className="flex justify-end">
           <button
             onClick={handleAddEvent}
